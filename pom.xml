@@ -34,8 +34,8 @@
             <groupId>com.avaya</groupId>
             <artifactId>tsapi</artifactId>
             <version>6.3.0.121</version>
+            <!--<scope>system</scope>-->
         </dependency>
-
     </dependencies>
 
 
@@ -50,6 +50,7 @@
                 </configuration>
             </plugin>
         </plugins>
+
     </build>
 
 </project>

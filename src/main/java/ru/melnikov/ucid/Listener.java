@@ -16,7 +16,6 @@ public class Listener  extends CallListenerAdapter {
         this.controller = controller;
     }
 
-
     @Override
     public void callActive(CallEvent callEvent) {
         LucentV5Call v5 = (LucentV5Call) callEvent.getCall();

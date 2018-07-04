@@ -82,7 +82,7 @@ public class MainController {
         lable.setText("UCID");
         ucidField.setEditable(false);
         ucidField.setOnAction(event -> {
-            System.out.println("event" + event);
+            log.debug("event" + event);
             writeTextToClipboard(ucidField.getText());
         });
     }
