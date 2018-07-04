@@ -15,6 +15,9 @@
         <local.repository>C:\localrep</local.repository>
     </properties>
 
+
+     <!--For add JTAPI you need to do:-->
+    <!--mvn install:install-file -Dfile=D:\java\dmcc\JTAPI_SDK_Client\jtapi-sdk-6.3.0.121\lib\ecsjtapia.jar -DgroupId=com.avaya -DartifactId=tsapi -Dversion=6.3.0.121 -Dpackaging=jar -DlocalRepositoryPath=c:\localrep-->
     <repositories>
         <repository>
             <id>local-repo</id>
@@ -34,13 +37,15 @@
             <groupId>com.avaya</groupId>
             <artifactId>tsapi</artifactId>
             <version>6.3.0.121</version>
-            <!--<scope>system</scope>-->
         </dependency>
     </dependencies>
 
 
     <build>
         <plugins>
+
+            <!--FX plugin-->
+
             <plugin>
                 <groupId>com.zenjava</groupId>
                 <artifactId>javafx-maven-plugin</artifactId>
@@ -49,6 +54,74 @@
                     <mainClass>ru.melnikov.ucid.Main</mainClass>
                 </configuration>
             </plugin>
+
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <version>3.0.0</version>
+                <executions>
+                    <execution>
+                        <id>my-maven-assembly-plugin</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <finalName>ucid</finalName>
+                    <appendAssemblyId>false</appendAssemblyId>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <archive>
+                        <manifest>
+                            <mainClass>ru.melnikov.ucid.Main</mainClass>
+                        </manifest>
+                    </archive>
+                </configuration>
+            </plugin>
+
+            <plugin>
+                <groupId>com.akathist.maven.plugins.launch4j</groupId>
+                <artifactId>launch4j-maven-plugin</artifactId>
+                <version>1.7.22</version>
+                <executions>
+                    <execution>
+                        <id>l4j-clui</id>
+                        <phase>install</phase>
+                        <goals>
+                            <goal>launch4j</goal>
+                        </goals>
+                        <configuration>
+                            <headerType>gui</headerType>
+                            <!--<headerType>console</headerType>-->
+                            <jar>target/UCID.jar</jar>
+                            <outfile>target/${project.name}.exe</outfile>
+                            <errTitle>${project.name}</errTitle>
+
+                            <jre>
+                                <path>${java.home}</path> <!-- if you bundle the jre -->
+                            </jre>
+
+                            <versionInfo>
+                                <fileVersion>0.0.0.1</fileVersion>
+                                <txtFileVersion>${project.version}</txtFileVersion>
+                                <fileDescription>ip_plan</fileDescription>
+                                <copyright>(c) ${project.inceptionYear} MyCompany</copyright>
+                                <productVersion>0.0.0.1</productVersion>
+                                <txtProductVersion>${project.version}</txtProductVersion>
+                                <productName>${project.name}</productName>
+                                <companyName>MyCompany</companyName>
+                                <internalName>${project.name}</internalName>
+                                <originalFilename>${project.name}.exe</originalFilename>
+                            </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
 
     </build>
