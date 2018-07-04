@@ -1,4 +1,4 @@
-##Автор
+## Автор
 Anton Melnikov (Антон Мельников)
 
 melnikoffaa@mail.ru
@@ -30,7 +30,7 @@ melnikoffaa@mail.ru
   mvn install
   ````
  
-##Настройка собранного приложения 
+## Настройка собранного приложения 
 * Изменить файл **app.properties** в каталоге **config**: <br/>
  **Пример:**<br/>
   ```
