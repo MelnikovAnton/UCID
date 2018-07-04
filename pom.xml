@@ -16,7 +16,7 @@
     </properties>
 
 
-     <!--For add JTAPI you need to do:-->
+    <!--For add JTAPI you need to do:-->
     <!--mvn install:install-file -Dfile=D:\java\dmcc\JTAPI_SDK_Client\jtapi-sdk-6.3.0.121\lib\ecsjtapia.jar -DgroupId=com.avaya -DartifactId=tsapi -Dversion=6.3.0.121 -Dpackaging=jar -DlocalRepositoryPath=c:\localrep-->
     <repositories>
         <repository>
@@ -42,6 +42,17 @@
 
 
     <build>
+
+
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <excludes>
+                   <exclude>app.properties</exclude>
+                </excludes>
+            </resource>
+        </resources>
+
         <plugins>
 
             <!--FX plugin-->
@@ -79,6 +90,9 @@
                         <manifest>
                             <mainClass>ru.melnikov.ucid.Main</mainClass>
                         </manifest>
+                        <manifestEntries>
+                            <Class-Path>config/</Class-Path>
+                        </manifestEntries>
                     </archive>
                 </configuration>
             </plugin>
@@ -98,7 +112,7 @@
                             <headerType>gui</headerType>
                             <!--<headerType>console</headerType>-->
                             <jar>target/UCID.jar</jar>
-                            <outfile>target/${project.name}.exe</outfile>
+                            <outfile>target/UCID.exe</outfile>
                             <errTitle>${project.name}</errTitle>
 
                             <jre>
@@ -117,6 +131,26 @@
                                 <internalName>${project.name}</internalName>
                                 <originalFilename>${project.name}.exe</originalFilename>
                             </versionInfo>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-antrun-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>generate-resources</phase>
+                        <goals>
+                            <goal>run</goal>
+                        </goals>
+                        <configuration>
+                            <tasks>
+                                <mkdir dir="${project.build.directory}"/>
+                                <copy file="${basedir}/src/main/resources/app.properties"
+                                      tofile="${project.build.directory}/config/app.properties"/>
+                            </tasks>
                         </configuration>
                     </execution>
                 </executions>
