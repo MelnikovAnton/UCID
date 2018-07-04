@@ -30,7 +30,6 @@ melnikoffaa@mail.ru
   mvn install
   ````
  
-
 ##Настройка собранного приложения 
 * Изменить файл **app.properties** в каталоге **config**: <br/>
  **Пример:**<br/>
@@ -40,7 +39,3 @@ melnikoffaa@mail.ru
   login = CTIuser // Имя пользователя на AES
   password = CTIuser_1 // Пароль пользователя на AES
   ```
-
-
-##Инсталяция
-mvn install
